@@ -1,0 +1,17 @@
+{
+  "name": "taglish-translate",
+  "version": "1.0.0",
+  "description": "A translation tool for English, Tagalog, and Taglish",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@upstash/ratelimit": "^1.0.1",
+    "@vercel/kv": "^1.0.1",
+    "openai": "^4.28.4"
+  }
+}

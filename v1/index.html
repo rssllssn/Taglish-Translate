@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taglish Translate - Mabuhay!</title>
+    <meta name="description" content="Translate between English, Tagalog, and Taglish natively with an AI-powered conversational dictionary.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Load Material Symbols for icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<body class="dark-theme">
+    <nav class="navbar">
+        <div class="logo">
+            <h1>Taglish Translate</h1>
+            <span class="greeting">Mabuhay! 👋</span>
+        </div>
+        <div class="nav-links">
+            <a href="/privacy-policy/">Privacy Policy</a>
+            <a href="/terms-of-use/">Terms of Use</a>
+        </div>
+    </nav>
+
+    <main class="translator-container">
+        <!-- Vibe Selector (Only active when translating TO Taglish) -->
+        <div id="vibe-container" class="vibe-selector hidden">
+            <span class="vibe-label">Taglish Vibe:</span>
+            <div class="vibe-options">
+                <label class="vibe-radio">
+                    <input type="radio" name="vibe" value="casual" checked>
+                    <span class="vibe-btn">Casual</span>
+                </label>
+                <label class="vibe-radio">
+                    <input type="radio" name="vibe" value="formal">
+                    <span class="vibe-btn">Formal</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="translator-panels">
+            <!-- Left Panel (Source) -->
+            <div class="panel source-panel">
+                <div class="panel-header">
+                    <div class="custom-select">
+                        <select id="source-lang">
+                            <option value="en">English</option>
+                            <option value="tl">Tagalog</option>
+                            <option value="taglish">Taglish</option>
+                        </select>
+                        <span class="material-symbols-outlined select-icon">arrow_drop_down</span>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <textarea id="source-text" placeholder="Enter text" spellcheck="false"></textarea>
+                    
+                    <div class="panel-footer">
+                        <button class="icon-btn" aria-label="Voice Input">
+                            <span class="material-symbols-outlined">mic</span>
+                        </button>
+                        <span class="char-count">0 / 5000</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Swap Button -->
+            <div class="swap-container">
+                <button id="swap-btn" class="icon-btn swap-btn" aria-label="Swap Languages">
+                    <span class="material-symbols-outlined">sync_alt</span>
+                </button>
+            </div>
+
+            <!-- Right Panel (Target) -->
+            <div class="panel target-panel">
+                <div class="panel-header">
+                    <div class="custom-select">
+                        <select id="target-lang">
+                            <option value="taglish">Taglish</option>
+                            <option value="en">English</option>
+                            <option value="tl">Tagalog</option>
+                        </select>
+                        <span class="material-symbols-outlined select-icon">arrow_drop_down</span>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <!-- Read-only textarea for result -->
+                    <textarea id="target-text" placeholder="Translation" readonly spellcheck="false"></textarea>
+                    
+                    <div class="panel-footer target-footer">
+                        <button class="icon-btn" id="copy-btn" aria-label="Copy Translation">
+                            <span class="material-symbols-outlined">content_copy</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="loading-indicator" class="loading hidden">
+            Translating...
+        </div>
+        <div id="error-message" class="error hidden"></div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
