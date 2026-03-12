@@ -148,8 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn("Speech Recognition API is not supported in this browser.");
     }
 
-    // Translate Action
-    translateBtn.addEventListener('click', translate);
+    // Translate Action happens at the bottom after initialization
 
     // Copy to clipboard
     copyBtn.addEventListener('click', async () => {
@@ -220,4 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loadingIndicator.classList.add('hidden');
         }
     };
+
+    // Translate Action
+    translateBtn.addEventListener('click', translate);
 });
