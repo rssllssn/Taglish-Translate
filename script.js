@@ -11,10 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const charCount = document.querySelector('.char-count');
     const loadingIndicator = document.getElementById('loading-indicator');
     const errorMessage = document.getElementById('error-message');
+    const translateBtn = document.getElementById('translate-action-btn');
 
     // State
     const maxChars = 5000;
-    let debounceTimer;
 
     // Check if we need to show the vibe selector (Target = Taglish)
     const updateVibeVisibility = () => {
@@ -32,23 +32,20 @@ document.addEventListener('DOMContentLoaded', () => {
     sourceLang.addEventListener('change', () => {
         if (sourceLang.value === targetLang.value) {
             // Prevent same languages by swapping
-            handleSwap();
-        } else {
-            translate();
+            handleSwap(false);
         }
     });
 
     targetLang.addEventListener('change', () => {
         if (sourceLang.value === targetLang.value) {
-            handleSwap();
+            handleSwap(false);
         } else {
             updateVibeVisibility();
-            translate();
         }
     });
 
     // Swap logic
-    const handleSwap = () => {
+    const handleSwap = (autoTranslate = false) => {
         const tempLang = sourceLang.value;
         sourceLang.value = targetLang.value;
         targetLang.value = tempLang;
@@ -62,10 +59,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateVibeVisibility();
         updateCharCount();
-        translate();
+        if (autoTranslate) {
+            translate();
+        }
     };
 
-    swapBtn.addEventListener('click', handleSwap);
+    swapBtn.addEventListener('click', () => handleSwap(false));
 
     // Text Input logic
     const updateCharCount = () => {
@@ -84,22 +83,17 @@ document.addEventListener('DOMContentLoaded', () => {
             sourceText.value = sourceText.value.substring(0, maxChars);
         }
         updateCharCount();
-
-        // Debounce API call
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => {
-            translate();
-        }, 800); // Wait 800ms after user stops typing
     });
 
-    // Vibe changes trigger translation if there is text
+    // Vibe changes no longer auto-translate
     vibeRadios.forEach(radio => {
         radio.addEventListener('change', () => {
-            if (sourceText.value.trim().length > 0) {
-                translate();
-            }
+            // Wait for manual translation
         });
     });
+    
+    // Translate Action
+    translateBtn.addEventListener('click', translate);
 
     // Copy to clipboard
     copyBtn.addEventListener('click', async () => {

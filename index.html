@@ -57,10 +57,15 @@
                     <textarea id="source-text" placeholder="Enter text" spellcheck="false"></textarea>
                     
                     <div class="panel-footer">
-                        <button class="icon-btn" aria-label="Voice Input">
-                            <span class="material-symbols-outlined">mic</span>
-                        </button>
-                        <span class="char-count">0 / 5000</span>
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <button class="icon-btn" aria-label="Voice Input">
+                                <span class="material-symbols-outlined">mic</span>
+                            </button>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <span class="char-count">0 / 5000</span>
+                            <button id="translate-action-btn" class="translate-action-btn">Translate</button>
+                        </div>
                     </div>
                 </div>
             </div>
