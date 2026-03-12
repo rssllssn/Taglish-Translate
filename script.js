@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingIndicator = document.getElementById('loading-indicator');
     const errorMessage = document.getElementById('error-message');
     const translateBtn = document.getElementById('translate-action-btn');
+    const micBtn = document.getElementById('mic-btn');
 
     // State
     const maxChars = 5000;
@@ -92,6 +93,61 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
+    // Speech-to-Text Logic
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognition = null;
+    let isRecording = false;
+
+    if (SpeechRecognition && micBtn) {
+        recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        
+        const setRecognitionLang = () => {
+            const langMap = {
+                'en': 'en-US',
+                'tl': 'tl-PH',
+                'taglish': 'tl-PH' // Default to Philippines tagalog for speech recognition
+            };
+            recognition.lang = langMap[sourceLang.value] || 'en-US';
+        };
+
+        recognition.onstart = () => {
+            isRecording = true;
+            micBtn.style.color = '#f28b82'; // Red indicator when recording
+        };
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            const currentText = sourceText.value;
+            sourceText.value = currentText ? currentText + ' ' + transcript : transcript;
+            updateCharCount();
+        };
+
+        recognition.onerror = (event) => {
+            console.error('Speech recognition error:', event.error);
+            isRecording = false;
+            micBtn.style.color = 'var(--text-secondary)';
+        };
+
+        recognition.onend = () => {
+            isRecording = false;
+            micBtn.style.color = 'var(--text-secondary)';
+        };
+
+        micBtn.addEventListener('click', () => {
+            if (isRecording) {
+                recognition.stop();
+            } else {
+                setRecognitionLang();
+                recognition.start();
+            }
+        });
+    } else if (micBtn) {
+        micBtn.style.display = 'none'; // Hide button if API is completely unsupported
+        console.warn("Speech Recognition API is not supported in this browser.");
+    }
+
     // Translate Action
     translateBtn.addEventListener('click', translate);
 
