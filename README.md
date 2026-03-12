@@ -10,6 +10,7 @@ A beautiful, sleek, and responsive translation web application built to facilita
 - **Trilingual Translation:** Instantly translate between English, Tagalog, and Taglish.
 - **Taglish "Vibes":** When translating *into* Taglish, users can select between "Casual" (colloquial, everyday slang) and "Formal" (professional, polite language) tones.
 - **Speech-to-Text Integration:** Natively use your microphone to dictate text directly into the translator using the Web Speech API.
+- **Text-to-Speech Output:** Listen directly to the translated text with the built-in speaker button using Web Speech API Synthesis.
 - **Premium Interface:** Features a stunning "glassmorphism" dark-mode aesthetic inspired by modern Google services.
 - **Vercel Serverless Architecture:** The frontend is entirely static, powered by lightning-fast, edge-deployed Vercel serverless functions (`/api/translate`).
 - **OpenAI Powered:** Leverages the OpenAI `gpt-3.5-turbo` model with highly specific system prompts to achieve localized, accurate Taglish translations that standard translation engines struggle with.

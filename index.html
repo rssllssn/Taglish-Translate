@@ -99,7 +99,10 @@
                     <!-- Read-only textarea for result -->
                     <textarea id="target-text" placeholder="Translation" readonly spellcheck="false"></textarea>
                     
-                    <div class="panel-footer target-footer">
+                    <div class="panel-footer target-footer" style="gap: 8px;">
+                        <button class="icon-btn" id="tts-btn" aria-label="Text to Speech">
+                            <span class="material-symbols-outlined">volume_up</span>
+                        </button>
                         <button class="icon-btn" id="copy-btn" aria-label="Copy Translation">
                             <span class="material-symbols-outlined">content_copy</span>
                         </button>

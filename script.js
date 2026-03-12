@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorMessage = document.getElementById('error-message');
     const translateBtn = document.getElementById('translate-action-btn');
     const micBtn = document.getElementById('mic-btn');
+    const ttsBtn = document.getElementById('tts-btn');
 
     // State
     const maxChars = 5000;
@@ -146,6 +147,52 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (micBtn) {
         micBtn.style.display = 'none'; // Hide button if API is completely unsupported
         console.warn("Speech Recognition API is not supported in this browser.");
+    }
+
+    // Text-to-Speech Logic
+    const synth = window.speechSynthesis;
+
+    if (synth && ttsBtn) {
+        ttsBtn.addEventListener('click', () => {
+            const textToSpeak = targetText.value;
+            if (!textToSpeak) return;
+            
+            // Prevent overlapping speech
+            if (synth.speaking) {
+                synth.cancel();
+            }
+
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            
+            // Map the language
+            const langMap = {
+                'en': 'en-US',
+                'tl': 'tl-PH',
+                'taglish': 'tl-PH'
+            };
+            utterance.lang = langMap[targetLang.value] || 'en-US';
+            
+            // Visual feedback
+            const icon = ttsBtn.querySelector('.material-symbols-outlined');
+            icon.textContent = 'record_voice_over';
+            ttsBtn.style.color = 'var(--accent-color)';
+            
+            utterance.onend = () => {
+                icon.textContent = 'volume_up';
+                ttsBtn.style.color = 'var(--text-secondary)';
+            };
+            
+            utterance.onerror = (e) => {
+                console.error("Speech synthesis error", e);
+                icon.textContent = 'volume_up';
+                ttsBtn.style.color = 'var(--text-secondary)';
+            };
+
+            synth.speak(utterance);
+        });
+    } else if (ttsBtn) {
+        ttsBtn.style.display = 'none';
+        console.warn("Speech Synthesis API is not supported in this browser.");
     }
 
     // Translate Action happens at the bottom after initialization
